@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:46:57 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/03 12:45:57 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/04 03:01:31 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <errno.h>
 # include "../srcs/libs/minilibx-linux/mlx.h"
 # include "/opt/X11/include/X11/X.h"
 # include "libs/ft_printf/ft_printf.h"
@@ -31,6 +32,7 @@
 typedef struct	s_state {
 	int			c_flag;
 	int			g_flag;
+	int			p_flag;
 	size_t		move_counter;
 }				t_state;
 
@@ -39,7 +41,6 @@ typedef struct	s_map {
 	size_t	col;
 	char	field;
 	int		texture;
-	int		end;
 }				t_map;
 
 typedef struct	s_data {
@@ -47,7 +48,6 @@ typedef struct	s_data {
 	void	*win;
 	void	*textures[5];
 	char	*path_ber;
-	int		playerflag;
 	size_t	w;
 	size_t	h;
 	int		moves[4];
@@ -63,6 +63,7 @@ typedef struct	s_validator {
 	size_t		now;
 }				t_validator;
 
+// 
 void	load_textures(t_data *data);
 void	set_textures(t_data *data);
 void	replace_textures(int kc, t_data *data);
@@ -73,16 +74,19 @@ int		sl_controller(int keycode, t_data *data);
 void	validate_map(t_data *data);
 
 // error
+void	err_msgs(int n, t_data *data);
 void	check_perimeter(t_data *d);
+void	check_state(t_data *d);
 
 // support
 size_t	resolve_line_breaks(char *s);
 size_t	current_locate(t_data *data);
 
 // close
-void	free_data(t_data *data);
+void	free_data(t_data *data, size_t indexer);
 int		on_destroy(t_data *data);
 int		observe_esc(int keycode, t_data *data);
 
+void	print_map(t_data *d);
 
 #endif

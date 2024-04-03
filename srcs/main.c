@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:40:35 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/03 12:38:57 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/04 03:18:51 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	data_setup(t_data *data, int flag)
 	if (flag == 0)
 	{
 		data->w = 0;
-		data->h = 0;
-		data->playerflag = 0;
+		data->h = 1;
 		data->state.c_flag = 0;
 		data->state.g_flag = 0;
+		data->state.p_flag = 0;
 		data->state.move_counter = 0;
 		data->prev = '0';
 		data->map = NULL;
@@ -35,11 +35,13 @@ static void	data_setup(t_data *data, int flag)
 	}
 }
 
-static void	handle_errors()
+static void	handle_errors(t_data *data)
 {
-	
+	check_perimeter(data);
+	check_state(data);
 }
 
+// Missing argv. [miss-argv]
 static char	*parse_arg(char *s)
 {
 	size_t	len;
@@ -59,7 +61,7 @@ static void	game_setup(t_data *data)
 	load_textures(data);
 	load_map(data);
 	data_setup(data, 1);
-	handle_errors();
+	handle_errors(data);
 	validate_map(data);
 	data->win = mlx_new_window(data->mlx,
 			(data->w * MATERIAL_SIZE), ((data->h) * MATERIAL_SIZE),
@@ -91,7 +93,7 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx);
 }
 
-__attribute__((destructor))
-static void destructor() {
-	system("leaks -q so_long");
-}
+// __attribute__((destructor))
+// static void destructor() {
+// 	system("leaks -q so_long");
+// }

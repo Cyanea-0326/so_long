@@ -33,7 +33,7 @@ $(SO_LONG):
 	@echo "so_long-Success!!"
 
 run: re
-	./$(SO_LONG) ./maps/valid/valid1.ber
+	./$(SO_LONG) ./so_long_invalidator/maps/invalid/no_coins_path.ber
 
 clean:
 	make -C $(SRC_PATH)libs/ft_printf clean
@@ -45,3 +45,5 @@ fclean: clean
 	make -C $(SRC_PATH)libs/gnl fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re run
