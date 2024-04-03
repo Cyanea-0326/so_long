@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 05:22:45 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/03 10:01:28 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:55:34 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // 2:高さ*幅+1の配列を作成
 
 // :外周が1か確認
-// :C,E,Pの個数をflagで管理どれかが2になった瞬間error
 // :ルートの確認
 
 #include "so_long.h"
@@ -29,25 +28,23 @@ static int	is_invalidfield(char c, t_data *data)
 			data->state.c_flag++;
 		else if (c == 'E')
 			data->state.g_flag++;
-		else if (c == 'P' && data->playerflag++ > 0)
-			return (1);
+		else if (c == 'P')
+			data->playerflag++;
 		return (0);
 	}
 	return (1);
 }
 
-size_t	resolve_line_breaks(char *s)
-{
-	if (ft_strchr(s, '\n'))
-	{
-		return (ft_strlen(s) - 1);
-	}
-	return (ft_strlen(s));
-}
-
 static char	*set_firstline(t_data *data, int fd, char *line)
 {
 	line = get_next_line(fd);
+	if (line == NULL)
+	{
+		perror("File is empty.\n");
+		free(line);
+		free_data(data);
+		exit(EXIT_FAILURE);
+	}
 	while (ft_strlen(line) - 1 == 0)
 	{
 		line = get_next_line(fd);
@@ -56,7 +53,7 @@ static char	*set_firstline(t_data *data, int fd, char *line)
 	return (line);
 }
 
-void	set_elements(t_data *data, char *line, size_t row)
+static void	set_elements(t_data *data, char *line, size_t row)
 {
 	size_t	current;
 	size_t	col;
@@ -72,6 +69,7 @@ void	set_elements(t_data *data, char *line, size_t row)
 		if (is_invalidfield(*line, data))
 		{
 			perror("Found invalid field");
+			free_data(data);
 			exit(EXIT_FAILURE);
 		}
 		data->map[current].field = *line;
@@ -83,7 +81,7 @@ void	set_elements(t_data *data, char *line, size_t row)
 	}
 }
 
-void	set_map(t_data *data, int fd)
+static void	set_map(t_data *data, int fd)
 {
 	t_map	*map;
 	char	*line;
@@ -124,8 +122,9 @@ void	load_map(t_data *data)
 		line = get_next_line(fd);
 		if (line != NULL && resolve_line_breaks(line) != data->w)
 		{
-			perror("map is invalid");
+			perror("Map is invalid");
 			free(line);
+			free_data(data);
 			exit(EXIT_FAILURE);
 		}
 		data->h++;

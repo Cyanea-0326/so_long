@@ -6,21 +6,11 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 11:25:34 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/03 09:59:14 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:07:19 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-size_t	current_locate(t_data *data)
-{
-	size_t	current;
-
-	current = 0;
-	while (data->map[current].field != 'P')
-		current++;
-	return (current);
-}
 
 static char	verify_dest(int kc, t_data *data)
 {
@@ -43,7 +33,7 @@ static char	verify_dest(int kc, t_data *data)
 	return (-1);
 }
 
-void	move_charctor(int kc, t_data *data)
+static void	move_charctor(int kc, t_data *data)
 {
 	char	dest;
 

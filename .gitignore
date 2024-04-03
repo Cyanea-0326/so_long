@@ -4,4 +4,4 @@ bin
 .vscode
 .git
 pyvenv.cfg
-# so_long.dSYM
+so_long.dSYM/Contents

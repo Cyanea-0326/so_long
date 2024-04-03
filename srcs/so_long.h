@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:46:57 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/03 10:03:37 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:45:57 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct	s_map {
 typedef struct	s_data {
 	void	*mlx;
 	void	*win;
-	void	*textures[6];
+	void	*textures[5];
 	char	*path_ber;
 	int		playerflag;
 	size_t	w;
@@ -69,11 +69,20 @@ void	replace_textures(int kc, t_data *data);
 void	load_map(t_data *data);
 
 int		sl_controller(int keycode, t_data *data);
-size_t	current_locate(t_data *data);
 
 void	validate_map(t_data *data);
-int		dfs_map(t_validator	*v, t_data *data);
 
-int on_destroy(t_data *data);
+// error
+void	check_perimeter(t_data *d);
+
+// support
+size_t	resolve_line_breaks(char *s);
+size_t	current_locate(t_data *data);
+
+// close
+void	free_data(t_data *data);
+int		on_destroy(t_data *data);
+int		observe_esc(int keycode, t_data *data);
+
 
 #endif

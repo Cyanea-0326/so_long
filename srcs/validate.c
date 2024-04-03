@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 00:32:24 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/03 10:26:36 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:18:52 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	validate_map(t_data *data)
 	if (resolve_map(&validator, data) == 0)
 	{
 		free(validator.mark);
+		free_data(data);
 		perror("This map does not allow access to E or C.\n");
 		exit(EXIT_FAILURE);
 	}

@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 04:46:10 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/03 08:31:50 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:30:49 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	load_textures(t_data *data)
 {
-	int		width;
-	int		height;
+	int	width;
+	int	height;
 
 	width = MATERIAL_SIZE;
 	height = MATERIAL_SIZE;
@@ -29,7 +29,6 @@ void	load_textures(t_data *data)
 			"./srcs/textures/3_wall.xpm", &width, &height);
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx,
 			"./srcs/textures/4_floor.xpm", &width, &height);
-	data->textures[5] = NULL;
 }
 
 static void	update_texture(int index, int selector, t_data *data)

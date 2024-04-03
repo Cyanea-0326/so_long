@@ -7,10 +7,13 @@ INCLUDES = -I/opt/X11/include -I./srcs/libs/mlx
 SRC_PATH = ./srcs/
 
 FILES = $(SRC_PATH)main.c \
+		$(SRC_PATH)close.c \
+		$(SRC_PATH)error.c \
 		$(SRC_PATH)graphic.c \
 		$(SRC_PATH)readmap.c \
 		$(SRC_PATH)controll.c \
 		$(SRC_PATH)validate.c \
+		$(SRC_PATH)support.c \
 
 MLX_FLAG = -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
 X11_FLAGS = -L/usr/X11/lib -lXext -lX11
