@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 11:30:16 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/04 02:38:59 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/04 04:54:16 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	check_perimeter(t_data *d)
 void	check_state(t_data *d)
 {
 	if (d->state.p_flag != 1 || d->state.g_flag != 1)
+		err_msgs(-4, d);
+	if (d->state.c_flag < 1)
 		err_msgs(-4, d);
 }
 
