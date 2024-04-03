@@ -6,13 +6,13 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 11:25:34 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/02 23:03:10 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/03 09:59:14 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	current_locate(t_data *data)
+size_t	current_locate(t_data *data)
 {
 	size_t	current;
 
@@ -45,33 +45,32 @@ static char	verify_dest(int kc, t_data *data)
 
 void	move_charctor(int kc, t_data *data)
 {
-	if (verify_dest(kc, data) == '0')
+	char	dest;
+
+	dest = verify_dest(kc, data);
+	if (dest == '0' || dest == 'C')
 	{
 		replace_textures(kc, data);
-		data->state.move_counter++;
-		ft_printf("Moved: [%u]\n", data->state.move_counter);
+		ft_printf("Moved: [%u]\n", ++data->state.move_counter);
+		if (dest == 'C')
+			ft_printf("Remaining collectibles: [%u]\n", --data->state.c_flag);
 	}
-	else if (verify_dest(kc, data) == 'C')
+	else if (dest == 'E')
 	{
 		replace_textures(kc, data);
-		data->state.c_flag--;
-		data->state.move_counter++;
-		ft_printf("Remaining collectibles: [%d]\n", data->state.c_flag);
-		ft_printf("Moved: [%u]\n", data->state.move_counter);
-	}
-	else if (verify_dest(kc, data) == 'E')
-	{
 		if (data->state.c_flag > 0)
+		{
+			ft_printf("Moved: [%u]\n", ++data->state.move_counter);
 			return ((void)ft_printf("Collectibles are lef.\n"));
+		}
 		ft_printf("\n---- GAME CLEAR ----\n");
-		ft_printf("Total moved: %d\n\n",data->state.move_counter);
+		ft_printf("Total moved: %d\n\n", ++data->state.move_counter);
 		on_destroy(data);
 	}
 }
 
 int	sl_controller(int kc, t_data *data)
 {
-	(void)data;
 	if (kc == KEY_W || kc == KEY_A || kc == KEY_S || kc == KEY_D)
 	{
 		move_charctor(kc, data);

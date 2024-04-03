@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:46:57 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/02 22:51:31 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:03:37 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,30 @@ typedef struct	s_data {
 	int		playerflag;
 	size_t	w;
 	size_t	h;
+	int		moves[4];
 	t_state state;
+	char	prev;
 	t_map	*map;
 }				t_data;
+
+typedef struct	s_validator {
+	int			collectbles;
+	int			goal;
+	size_t		*mark;
+	size_t		now;
+}				t_validator;
 
 void	load_textures(t_data *data);
 void	set_textures(t_data *data);
 void	replace_textures(int kc, t_data *data);
 void	load_map(t_data *data);
 
-int		current_locate(t_data *data);
 int		sl_controller(int keycode, t_data *data);
+size_t	current_locate(t_data *data);
 
-void	draw_text(void *mlx, void *win, int x, int y, char *text);
+void	validate_map(t_data *data);
+int		dfs_map(t_validator	*v, t_data *data);
+
 int on_destroy(t_data *data);
 
 #endif

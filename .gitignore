@@ -1,0 +1,7 @@
+lib
+include
+bin
+.vscode
+.git
+pyvenv.cfg
+so_long.dSYM

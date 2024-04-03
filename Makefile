@@ -10,7 +10,7 @@ FILES = $(SRC_PATH)main.c \
 		$(SRC_PATH)graphic.c \
 		$(SRC_PATH)readmap.c \
 		$(SRC_PATH)controll.c \
-		# $(SRC_PATH)validate.c \
+		$(SRC_PATH)validate.c \
 
 MLX_FLAG = -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
 X11_FLAGS = -L/usr/X11/lib -lXext -lX11
@@ -30,7 +30,7 @@ $(SO_LONG):
 	@echo "so_long-Success!!"
 
 run: re
-	./$(SO_LONG) ./map
+	./$(SO_LONG) ./maps/valid/valid1.ber
 
 clean:
 	make -C $(SRC_PATH)libs/ft_printf clean
