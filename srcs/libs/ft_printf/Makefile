@@ -9,23 +9,21 @@ FILES =		format_char.c \
 			root_putnbr.c \
 			ft_printf.c \
 
-OBJ = $(FILES:.c=.o)
+%.o: %.c
+	@gcc $(CFLAGS) -c $< -o $@
 
 all: libftprintf.a
 
 libftprintf.a: $(OBJ)
-	make -C ./libft
-	ar rcs libftprintf.a $(OBJ) $(LIBFT)
+	@make -C ./libft
+	@ar rcs libftprintf.a $(FILES:.c=.o) $(LIBFT)
 
 clean:
-	rm -f $(OBJ)
-	make -C ./libft clean
+	@rm -f $(OBJ)
+	@make -C ./libft clean
 
-fclean:
-	make clean
-	rm -f libftprintf.a
-	make -C ./libft fclean
+fclean: clean
+	@rm -f libftprintf.a
+	@make -C ./libft fclean
 
-re: 
-	make fclean
-	make all
+re: fclean all

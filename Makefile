@@ -1,7 +1,7 @@
 SO_LONG = so_long
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g $(INCLUDES) -I$(PATH)so_long.h $(FT_PRINTF_A) $(LIBFT_A) $(GNL_A) $(MLX_A)
-# CFLAGS = -Wall -Werror -Wextra $(INCLUDES) -I$(PATH)so_long.h $(FT_PRINTF_A) $(LIBFT_A) $(GNL_A) $(MLX_A)
+# CFLAGS = -Wall -Werror -Wextra -fsanitize=leak -g $(INCLUDES) -I$(PATH)so_long.h $(FT_PRINTF_A) $(LIBFT_A) $(GNL_A) $(MLX_A)
+CFLAGS = -Wall -Werror -Wextra $(INCLUDES) -I$(PATH)so_long.h $(FT_PRINTF_A) $(LIBFT_A) $(GNL_A) $(MLX_A)
 INCLUDES = -I/opt/X11/include -I./srcs/libs/mlx
 
 SRC_PATH = ./srcs/
@@ -32,18 +32,19 @@ $(SO_LONG):
 	@gcc $(CFLAGS) $(FILES) -o $(SO_LONG) $(MLX_FLAGS) $(X11_FLAGS)
 	@echo "so_long-Success!!"
 
-run: re
-	./$(SO_LONG) ./so_long_invalidator/maps/invalid/no_coins_path.ber
-
 clean:
-	make -C $(SRC_PATH)libs/ft_printf clean
-	make -C $(SRC_PATH)libs/gnl clean
+	@make -C $(SRC_PATH)libs/ft_printf clean
+	@make -C $(SRC_PATH)libs/gnl clean
 
 fclean: clean
-	rm -f $(SO_LONG)
-	make -C $(SRC_PATH)libs/ft_printf fclean
-	make -C $(SRC_PATH)libs/gnl fclean
+	@rm -f $(SO_LONG)
+	@make -C $(SRC_PATH)libs/ft_printf fclean
+	@make -C $(SRC_PATH)libs/gnl fclean
 
 re: fclean all
 
 .PHONY: all clean fclean re run
+
+# .SILENT:
+run: re
+	./$(SO_LONG) ./so_long_invalidator/maps/valid/valid2.ber

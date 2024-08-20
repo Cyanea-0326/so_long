@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:40:35 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/04 03:18:51 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:48:51 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static char	*parse_arg(char *s)
 	size_t	len;
 
 	len = ft_strlen(s);
-	if (ft_strncmp((s + (len - 4)), ".ber", 4) == 0)
+	if (len >= 4 &&ft_strncmp((s + (len - 4)), ".ber", 4) == 0)
 	{
 		return (s);
 	}
 	perror("Invalid argument");
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 static void	game_setup(t_data *data)
@@ -63,6 +63,7 @@ static void	game_setup(t_data *data)
 	data_setup(data, 1);
 	handle_errors(data);
 	validate_map(data);
+	validate_window(data);
 	data->win = mlx_new_window(data->mlx,
 			(data->w * MATERIAL_SIZE), ((data->h) * MATERIAL_SIZE),
 			"./so_long");
@@ -93,7 +94,20 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx);
 }
 
-// __attribute__((destructor))
-// static void destructor() {
-// 	system("leaks -q so_long");
+__attribute__((destructor))
+static void destructor() {
+	system("leaks -q so_long");
+}
+
+// #include <arm_acle.h>
+
+// __attribute__((always_inline))
+// uint64_t get_fpcr(void)
+// {
+//     return __arm_rsr64("fpcr");
+// }
+// __attribute__((always_inline))
+// void set_fpcr(uint64_t x)
+// {
+//     __arm_wsr64("fpcr", x);
 // }

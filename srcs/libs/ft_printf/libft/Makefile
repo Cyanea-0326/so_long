@@ -3,63 +3,61 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: shonakam <shonakam@student.42.jp>          +#+  +:+       +#+         #
+#    By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/29 18:35:50 by shonakam          #+#    #+#              #
-#    Updated: 2023/10/12 17:57:03 by shonakam         ###   ########.fr        #
+#    Updated: 2024/04/04 09:02:44 by shonakam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
 CFLAGS = -I./includes -Wall -Wextra -Werror
 
-FILES =		ft_atoi \
-			ft_bzero \
-			ft_calloc \
-			ft_isalnum \
-			ft_isalpha \
-			ft_isascii \
-			ft_isdigit \
-			ft_isprint \
-			ft_memchr \
-			ft_memcmp \
-			ft_memcpy \
-			ft_memmove \
-			ft_memset \
-			ft_strchr \
-			ft_strlen \
-			ft_strlcpy \
-			ft_strlcat \
-			ft_strrchr \
-			ft_strnstr \
-			ft_strncmp \
-			ft_toupper \
-			ft_tolower \
-			ft_strdup \
-			ft_substr \
-			ft_strjoin \
-			ft_strtrim \
-			ft_split \
-			ft_itoa \
-			ft_strmapi \
-			ft_striteri \
-			ft_putchar_fd \
-			ft_putstr_fd \
-			ft_putendl_fd \
-			ft_putnbr_fd \
+FILES =		ft_atoi.c \
+			ft_bzero.c \
+			ft_calloc.c \
+			ft_isalnum.c \
+			ft_isalpha.c \
+			ft_isascii.c \
+			ft_isdigit.c \
+			ft_isprint.c \
+			ft_memchr.c \
+			ft_memcmp.c \
+			ft_memcpy.c \
+			ft_memmove.c \
+			ft_memset.c \
+			ft_strchr.c \
+			ft_strlen.c \
+			ft_strlcpy.c \
+			ft_strlcat.c \
+			ft_strrchr.c \
+			ft_strnstr.c \
+			ft_strncmp.c \
+			ft_toupper.c \
+			ft_tolower.c \
+			ft_strdup.c \
+			ft_substr.c \
+			ft_strjoin.c \
+			ft_strtrim.c \
+			ft_split.c \
+			ft_itoa.c \
+			ft_strmapi.c \
+			ft_striteri.c \
+			ft_putchar_fd.c \
+			ft_putstr_fd.c \
+			ft_putendl_fd.c \
+			ft_putnbr_fd.c \
 
 all: libft.a
 
-libft.a: $(FILES:%=%.o)
-	ar rcs libft.a $(FILES:%=%.o)
+libft.a: $(FILES:%.c=%.o)
+	@ar rcs libft.a $(FILES:%.c=%.o)
 
 clean:
-	rm -f $(FILES:%=%.o)
+	@rm -f $(FILES:%.c=%.o)
 
-fclean:
-	make clean
-	rm -f libft.a
+fclean: clean
+	@rm -f libft.a
 
-re: 
-	make fclean
-	make all
+re: fclean all
+
+.SILENT:

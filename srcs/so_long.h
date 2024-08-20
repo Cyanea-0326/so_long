@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:46:57 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/04 03:01:31 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:37:01 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "libs/gnl/get_next_line_bonus.h"
 
 # define MATERIAL_SIZE 32
+# define DISPLAY_X 1440
+# define DISPLAY_Y 900
 # define KEY_ESC 65307
 # define KEY_W 119
 # define KEY_A 97
@@ -72,6 +74,7 @@ void	load_map(t_data *data);
 int		sl_controller(int keycode, t_data *data);
 
 void	validate_map(t_data *data);
+void	validate_window(t_data *data);
 
 // error
 void	err_msgs(int n, t_data *data);

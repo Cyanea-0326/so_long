@@ -6,7 +6,7 @@
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 00:32:24 by shonakam          #+#    #+#             */
-/*   Updated: 2024/04/04 04:49:43 by shonakam         ###   ########.fr       */
+/*   Updated: 2024/08/20 20:40:28 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ static void	init_validator(t_validator *validator, t_data *data)
 	validator->mark[validator->now] = 1;
 }
 
-static int total = 0;
-
 static int	resolve_map(t_validator	*v, t_data *data)
 {
-	// size_t	current;
 	size_t	next;
 	size_t	i;
 
@@ -44,10 +41,6 @@ static int	resolve_map(t_validator	*v, t_data *data)
 	while (i < 4)
 	{
 		next = v->now + data->moves[i];
-		// printf("now%zu\n",  v->now);
-		// printf("nex:%zu - mov:%d\n",  next, data->moves[i]);
-		// printf("C:%d\n",  v->collectbles);
-		// printf("G:%d\n",  v->goal);
 		if (data->map[next].field != '1' && v->mark[next] == 0)
 		{
 			v->now = next;
@@ -61,7 +54,6 @@ static int	resolve_map(t_validator	*v, t_data *data)
 			v->now -= data->moves[i];
 			next = 0;
 		}
-		printf("ttl:%d\n",++total);
 		i++;
 	}
 	return (0);
@@ -72,8 +64,6 @@ void	validate_map(t_data *data)
 	t_validator	validator;
 
 	init_validator(&validator, data);
-	printf("%d\n",  data->state.c_flag);
-	// exit(0);
 	if (resolve_map(&validator, data) == 0)
 	{
 		free(validator.mark);
@@ -82,4 +72,21 @@ void	validate_map(t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	free(validator.mark);
+}
+
+void	validate_window(t_data *data)
+{
+	int	flag;
+
+	flag = 0;
+	if ((data->w * MATERIAL_SIZE) <= DISPLAY_X)
+		flag++;
+	if ((data->h * MATERIAL_SIZE) <= DISPLAY_Y)
+		flag++;
+	if (flag != 2)
+	{
+		perror("This map is invalis size.\n");
+		free_data(data, 0);
+		exit(EXIT_FAILURE);
+	}
 }

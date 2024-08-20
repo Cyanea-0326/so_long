@@ -7,9 +7,8 @@ OBJS = $(FILES:.c=.o)
 all: gnl.a
 
 gnl.a:
-	@gcc $(CFLAGS) -c $(FILES)
-	@ar rcs gnl.a $(FILES:.c=.o)
-	@echo "gnl-Success!!"
+	gcc $(CFLAGS) -c $(FILES)
+	ar rcs gnl.a $(FILES:.c=.o)
 
 clean:
 	rm -f $(GNL) $(OBJS)
@@ -18,3 +17,5 @@ fclean: clean
 	rm -f gnl.a
 
 re: fclean all
+
+.SILENT:
